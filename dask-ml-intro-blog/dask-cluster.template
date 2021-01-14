@@ -67,11 +67,23 @@ Resources:
             Resource: '*'
       Roles:
         - Ref: ECSExecutionRoleV1
-
+  
   DaskCluster:
     Type: 'AWS::ECS::Cluster'
     Properties:
       ClusterName: Fargate-Dask-Cluster
+      ClusterSettings:
+        - Name: containerInsights
+          Value: enabled
+      CapacityProviders:
+        - FARGATE
+        - FARGATE_SPOT
+      DefaultCapacityProviderStrategy:
+        - CapacityProvider: FARGATE
+          Weight: 1
+        - CapacityProvider: FARGATE_SPOT
+          Weight: 1
+
 
   serviceRegistryScheduler:
     Type: 'AWS::ServiceDiscovery::Service'

@@ -36,16 +36,10 @@ Resources:
             Action: 
               - "sts:AssumeRole"
       Path: "/"
-      Policies: 
-        - 
-          PolicyName: "root"
-          PolicyDocument: 
-            Version: "2012-10-17"
-            Statement: 
-              - 
-                Effect: "Allow"
-                Action: "*"
-                Resource: "*"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
+        - arn:aws:iam::aws:policy/AmazonECS_FullAccess
+
 Outputs:
   BasicNotebookInstanceId:
     Value: !Ref BasicNotebookInstance
